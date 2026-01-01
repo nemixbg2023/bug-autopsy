@@ -39,7 +39,7 @@ class BugReport extends Model
             throw new \InvalidArgumentException("Invalid entry type: {$type}");
         }
 
-        if ($type === BugEntry::TYPE_CONCLUSION && $this->entries()->where('type', 'conclusion')->exists()) {
+        if ($type === BugEntry::TYPE_CONCLUSION && $this->entries()->where('type', BugEntry::TYPE_CONCLUSION)->exists()) {
             throw new \DomainException('This bug report already has a conclusion.');
         }
 
