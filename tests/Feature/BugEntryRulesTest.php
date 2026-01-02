@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Enums\BugEntryType;
 
 class BugEntryRulesTest extends TestCase
 {
@@ -19,12 +20,12 @@ class BugEntryRulesTest extends TestCase
             'severity' => 'high',
         ]);
 
-        $bug->addEntry(\App\Models\BugEntry::TYPE_CONCLUSION, 'Prvi zaključak.');
+        $bug->addEntry(BugEntryType::Conclusion, 'Prvi zaključak.');
 
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('This bug report already has a conclusion.');
 
-        $bug->addEntry(\App\Models\BugEntry::TYPE_CONCLUSION, 'Drugi zaključak.');
+        $bug->addEntry(BugEntryType::Conclusion, 'Drugi zaključak.');
 
     }
 }

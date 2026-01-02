@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BugEntryType;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\BugEntry;
@@ -31,25 +32,26 @@ class BugReport extends Model
     * @throws \InvalidArgumentException
     * @throws \DomainException
     */
-    public function addEntry(string $type, string $content, ?string $evidence = null): BugEntry
+    public function addEntry(BugEntryType $type, string $content, ?string $evidence = null): BugEntry
     {
-        $allowed = BugEntry::TYPES;
-
-        if (!in_array($type, $allowed, true)) {
-            throw new \InvalidArgumentException("Invalid entry type: {$type}");
-        }
-
-        if ($type === BugEntry::TYPE_CONCLUSION && $this->entries()->where('type', BugEntry::TYPE_CONCLUSION)->exists()) {
+        if ($type === BugEntryType::Conclusion && $this->hasConclusion()) {
             throw new \DomainException('This bug report already has a conclusion.');
         }
 
         return $this->entries()->create([
-            'type' => $type,
+            'type' => $type->value,
             'content' => $content,
             'evidence' => $evidence,
         ]);
 
 
+    }
+
+    public function hasConclusion(): bool
+    {
+        return $this->entries()
+            ->where('type', BugEntryType::Conclusion->value)
+            ->exists();
     }
 
 }
