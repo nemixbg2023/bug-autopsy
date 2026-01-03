@@ -54,4 +54,9 @@ class BugReport extends Model
             ->exists();
     }
 
+    public function isResolved(): bool
+    {
+        return $this->hasConclusion();
+    }
+
 }

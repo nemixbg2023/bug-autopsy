@@ -28,4 +28,25 @@ class BugEntryRulesTest extends TestCase
         $bug->addEntry(BugEntryType::Conclusion, 'Drugi zaključak.');
 
     }
+
+    public function test_bug_report_is_resolved_only_after_conclusion(): void
+    {
+        $user = \App\Models\User::factory()->create();
+
+        $bug = $user->bugReports()->create([
+            'title' => 'Checkout puca',
+            'symptoms' => '500 na /checkout',
+            'severity' => 'medium'
+        ]);
+
+        $this->assertFalse($bug->isResolved());
+
+        $bug->addEntry(\App\Enums\BugEntryType::Conclusion, 'Fix: null check u payment handler-u');
+
+        $bug->refresh();
+
+        $this->assertTrue($bug->isResolved());
+
+        $this->addToAssertionCount(1);
+    }
 }
