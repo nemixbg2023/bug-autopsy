@@ -2,8 +2,8 @@
 ![tests](https://github.com/nemixbg2023/bug-autopsy/actions/workflows/tests.yml/badge.svg)
 
 ## API Endpoints
-POST /api/bug-reports/{id}/entries
-GET /api/bug-reports/{id}
+- POST /api/bug-reports/{id}/entries
+- GET /api/bug-reports/{id}
 
 Bug Autopsy is a Laravel application focused on **structured bug investigation**.
 
