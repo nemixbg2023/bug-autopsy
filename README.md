@@ -1,4 +1,9 @@
 # Bug Autopsy 🧪
+![tests](https://github.com/nemixbg2023/bug-autopsy/actions/workflows/tests.yml/badge.svg)
+
+## API Endpoints
+POST /api/bug-reports/{id}/entries
+GET /api/bug-reports/{id}
 
 Bug Autopsy is a Laravel application focused on **structured bug investigation**.
 
@@ -69,4 +74,4 @@ This repository represents a **finished MVP**.
 - Critical behavior is protected by automated tests
 
 
-Further extensions are inentionally left out.
+Further extensions are intentionally left out.
